@@ -2,6 +2,14 @@
 
 A easy to use, general purpose template engine for nodejs. 
 
+### install
+
+	npm install magnum
+
+### overview
+
+The following outlines a layout, view and code required to render the output. 
+
 layout.html
 ```html
 <html>
@@ -46,13 +54,27 @@ outputs:
 </html>
 ```
 
+### contents
 
-### install
+* [api](#api)
+	* [render](#application)
+	* [compile](#options)
+	* [context](#context)
+* [syntax]
+	* [expressions](#expressions)
+	* [if statements](#if)
+	* [for statements](#if)
+	* [comments](#comments)
+	* [code blocks](#code blocks)
+ * [layouts]
+	* [import](#import)
 
-	npm install magnum
-
+<a name='api' />
 ### api
 
+The following are the methods exposed by the magnum api.
+
+<a name='render' />
 #### render
 
 compiles and renders the output.
@@ -64,6 +86,7 @@ var output = magnum.render('./view.html')
 
 ```
 
+<a name='compile' />
 #### compile
 
 compiles the template and returns a template object. users can use this compile once, and prevent extra reads to disk.
@@ -79,3 +102,124 @@ var html     = template.render({title: 'my page'})
 console.log(html)
 ```
 
+<a name='syntax' />
+### syntax
+
+The following syntax is available inside magnum templates.
+
+<a name='expressions' />
+#### expressions
+
+will emit the value contained.
+
+```
+@('hello world')
+
+@(123)
+
+@(some_variable)
+```
+
+<a name='if' />
+#### if statement
+
+if statments are supported.
+
+```
+@if(expression) {
+	some content
+}
+
+@if(a > 10) {
+	some content
+}
+
+@(user.loggedin) {
+	<span>welcome</span>
+}
+```
+
+<a name='for' />
+#### for statement
+
+the following for loops are supported.
+
+```
+@for(var i = i; i < 100; i++) {
+	@(i)
+}
+
+@for(var n in list) {
+	@(list[n])
+}
+```
+
+
+<a name='codeblock' />
+#### code blocks
+
+code blocks can be useful for adding template side rendering logic.
+
+```
+@{
+	var message = 'hello'
+}
+
+@(message)
+```
+
+<a name='comments' />
+#### comments
+```
+@*
+	this comment will not be rendered!
+*@
+```
+
+<a name="template_layouts_and_sections" />
+### layouts and sections
+
+magnum templates support template inheritance and partials. T
+
+#### import
+
+Use the import statement to have one template inheriate from another. This will allow the child template to override the sections of the parent. 
+
+##### layout.html
+Layout is the parent template, here we define three sections, header, body and footer. note that the footer has some default content.
+
+```html
+<html>
+	<head>
+		@section header
+	</head>
+	<body>
+		@section body
+		@section footer {
+			<span>copyright 2013</span>
+		}
+	</body>
+</html>
+```
+
+##### view.html
+Inside view.html, we inheriate from layout.html with the import keyword. Inside view.html, we define sections for header and body. Note that
+the default content for the footer not overridden.
+
+```html
+@import 'layout.html'
+
+@section header {
+	<title>@(context.title)</html>
+}
+
+@section body {
+	<h1>Welcome</h1>
+}
+```
+
+note: if a section is not overridden, the parents content is used instead.
+
+#### render
+
+Magnum templates allow the user to 
