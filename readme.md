@@ -17,7 +17,7 @@ A easy to use, general purpose template engine for nodejs.
 	* [if statements](#if)
 	* [for statements](#if)
 	* [comments](#comments)
-	* [code blocks](#code blocks)
+	* [code blocks](#codeblock)
 * [layouts](#layouts)
 	* [import](#import)
 	* [render](#render)
