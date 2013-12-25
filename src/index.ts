@@ -40,7 +40,7 @@ function initialize() {
     
     if(!engine) {
 
-        engine = new magnum.Engine({devmode : false})
+        engine = new magnum.Engine({cache : false})
     }
 }
 
