@@ -8,6 +8,7 @@ A easy to use, general purpose template engine for nodejs.
 
 ### contents
 * [overview](#overview)
+* [example](#example)
 * [api](#api)
 	* [render](#render)
 	* [compile](#compile)
@@ -15,43 +16,62 @@ A easy to use, general purpose template engine for nodejs.
 * [syntax](#syntax)
 	* [expressions](#expressions)
 	* [if statements](#if)
-	* [for statements](#if)
-	* [comments](#comments)
+	* [for statements](#for)
+	* [comments](#commentblock)
 	* [code blocks](#codeblock)
 * [layouts](#layouts)
 	* [import](#import)
 	* [render](#render)
 
+
 <a name='overview' />
 ### overview
 
-The following outlines a layout, view and code required to render the output. 
+Magnum is a general purpose logic driven templating engine for nodejs developers. Magnum templates allow developers to script 
+view logic with javascript syntax, with the intent to allow for the templating of any text based format. Inspired by Microsoft Razor.
 
-layout.html
+<a name='example' />
+### example
+
+The following is a quick example demonstrating rendering a template.
+
+##### layout.html
 ```html
+
 <html>
+
 	<head>
+
 		@section header
+
 	</head>
+
 	<body>
+
 		@section body
+
 	</body>
+
 </html>
 ```
 
-view.html
+##### view.html
 ```html
+
 @import 'layout.html'
 
 @section header {
+
 	<title>@(context.title)</html>
 }
 
 @section body {
+
 	<h1>Welcome</h1>
 }
 ```
-app.js
+
+##### app.js
 ```javascript
 var magnum = require('magnum')
 
@@ -61,29 +81,56 @@ var html = magnum.render('./view.html', context)
 
 console.log(html)
 ```
-outputs:
+
+##### outputs
+
 ```html
 <html>
+
 	<head>
+
 		<title>my page</html>
+
 	</head>
+
 	<body>
+
 		<h1>Welcome</h1>
+
 	</body>
+
 </html>
 ```
-
-
 
 <a name='api' />
 ### api
 
-The following are the methods exposed by the magnum api.
+The following outlines magnums methods.
+
+<a name='compile' />
+#### compile
+
+The compile() method compiles the template file and returns a template object. 
+
+```javascript
+
+var magnum   = require('magnum')
+
+var template = magnum.compile('./view.html')  // store for later
+
+//...later
+
+var context = {title: 'my page'}
+
+var html     = template.render(context) // render 
+
+console.log(html)
+```
 
 <a name='render' />
 #### render
 
-compiles and renders the output.
+If you 
 
 ```javascript
 var magnum = require('magnum')
@@ -92,39 +139,26 @@ var output = magnum.render('./view.html')
 
 ```
 
-<a name='compile' />
-#### compile
-
-compiles the template and returns a template object. users can use this compile once, and prevent extra reads to disk.
-
-```javascript
-
-var magnum   = require('magnum')
-
-var template = magnum.compile('./view.html') // save compiled template for later.
-
-var html     = template.render({title: 'my page'})
-
-console.log(html)
-```
-
 #### context
 
-When calling render() on a template, you can optionally pass a data context (an object) to be rendered. Magnum encapulates all data passed on the "context"
+When calling render() on a template (or via magnum itself), you can optionally pass a data context object to be rendered. 
+Magnum encapulates all data passed on the "context"
 object which is passed to magnum template on the render() method. Consider the following..
 
+##### app.js
 ```javascript
 
 var magnum   = require('magnum')
 
-var context = {name: 'dave', fruits: ['apples', 'oranges', 'kiwifruit', 'mangos', 'grapes']}
+var context = {name   : 'dave', 
+		       fruits : ['apples', 'oranges', 'kiwifruit', 'mangos', 'grapes' ]}
 
 var html = magnum.render('./template.html', context)
 ```
 
 the context can be accessed in the following way...
 
-template.html
+##### template.html
 ```html
 
 <p>Hi @(context.name)</p>
@@ -138,8 +172,6 @@ template.html
 
 </ul>
 ```
-
-contexts are optional.
 
 <a name='syntax' />
 ### syntax
@@ -155,6 +187,10 @@ will emit the value contained.
 @('hello world')
 
 @(123)
+
+@(10 > 20)
+
+@(true ? 'cat' : 'dog')
 
 @(some_variable)
 ```
@@ -195,7 +231,7 @@ the following for loops are supported.
 
 
 <a name='codeblock' />
-#### code blocks
+#### code
 
 code blocks can be useful for adding template side rendering logic.
 
@@ -207,7 +243,7 @@ code blocks can be useful for adding template side rendering logic.
 @(message)
 ```
 
-<a name='comments' />
+<a name='commentblock' />
 #### comments
 ```
 @*
@@ -230,15 +266,23 @@ layout.html will be the parent template, here we define three sections.. header,
 
 ```html
 <html>
+
 	<head>
+
 		@section header
+
 	</head>
+
 	<body>
+
 		@section body
+
 		@section footer {
+
 			<span>copyright 2013</span>
 		}
 	</body>
+
 </html>
 ```
 
@@ -251,10 +295,12 @@ instead.
 @import 'layout.html'
 
 @section header {
+
 	<title>@(context.title)</html>
 }
 
 @section body {
+
 	<h1>Welcome</h1>
 }
 ```
@@ -265,11 +311,18 @@ Magnum templates allow the user to render snippets of content in place. The foll
 
 ```
 <html>
+
 	<head>
+
 	</head>
+
 	<body>
+
 		@render 'navigation.html'
+
 		@section content
+
 	</body>
+
 </html>
 ```
