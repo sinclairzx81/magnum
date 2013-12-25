@@ -6,6 +6,23 @@ A easy to use, general purpose template engine for nodejs.
 
 	npm install magnum
 
+### contents
+* [overview](#overview)
+* [api](#api)
+	* [render](#application)
+	* [compile](#options)
+	* [context](#context)
+* [syntax](#syntax)
+	* [expressions](#expressions)
+	* [if statements](#if)
+	* [for statements](#if)
+	* [comments](#comments)
+	* [code blocks](#code blocks)
+* [layouts](#layouts)
+	* [import](#import)
+	* [render](#render)
+
+<a name='overview' />
 ### overview
 
 The following outlines a layout, view and code required to render the output. 
@@ -54,21 +71,7 @@ outputs:
 </html>
 ```
 
-### contents
 
-* [api](#api)
-	* [render](#application)
-	* [compile](#options)
-	* [context](#context)
-* [syntax](#syntax)
-	* [expressions](#expressions)
-	* [if statements](#if)
-	* [for statements](#if)
-	* [comments](#comments)
-	* [code blocks](#code blocks)
- * [layouts](#layouts)
-	* [import](#import)
-	* [render](#render)
 
 <a name='api' />
 ### api
