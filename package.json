@@ -1,0 +1,39 @@
+﻿{
+  "name"            : "magnum",
+
+  "version"         : "0.0.5",
+
+  "description"     : "General purpose javascript template engine inspired by Microsoft Razor templates.",
+
+  "main"            : "index.js",
+
+  "directories"     : { },
+
+  "dependencies"    : {},
+
+  "devDependencies" : {},
+
+  "scripts"   : {},
+
+  "repository": {
+
+    "type" : "git",
+
+    "url"  : "https://github.com/sinclairzx81/magnum.git"
+
+  },
+
+  "keywords": [ "template", "template engine", "microsoft razor", "razor",  "general purpose" ],
+
+  "author": "sinclair",
+
+  "licenses": [ {
+    
+	"type" : "The MIT License (MIT)",
+
+    "url"  : "https://raw.github.com/sinclairzx81/magnum/master/license.txt"
+
+  } ],
+
+  "readmeFilename": "readme.md"
+}
