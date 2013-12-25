@@ -133,7 +133,7 @@ console.log(html)
 <a name='render' />
 #### render
 
-If you 
+To quickly compile and render a view, call the magnum.render() method.
 
 ```javascript
 var magnum = require('magnum')
