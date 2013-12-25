@@ -57,7 +57,7 @@ module.exports.compile = function(path:string) : Function {
 
     var template = engine.compile(path);
 
-    return template.render;
+    return template;
 }
 
 

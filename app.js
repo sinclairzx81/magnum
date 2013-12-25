@@ -1,7 +1,21 @@
 ﻿var magnum = require('./bin/index.js')
 
-//console.log(magnum.render('./template.txt'))
+//---------------------------------------
+// parse on the fly
+//---------------------------------------
 
-var m = magnum.compile('./template.txt', {a: 10});
+var html = magnum.render('./template.html', {title: 'my page'})
 
-console.log(m.toString())
+console.log(html)
+
+//---------------------------------------
+// compile and save
+//---------------------------------------
+
+var template = magnum.compile('./template.html', {a: 10});
+
+var html = template.render({title: 'my page'})
+
+console.log(html)
+
+

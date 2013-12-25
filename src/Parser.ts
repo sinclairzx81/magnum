@@ -161,7 +161,7 @@ module magnum {
                     
                     var if_declaration = <magnum.IfDeclaration>declaration;
 
-                    this.write ('       ' + if_declaration.type + if_declaration.expression + '{')
+                    this.write ('        ' + if_declaration.type + if_declaration.expression + '{')
                     
                     break;
 

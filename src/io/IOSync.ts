@@ -40,7 +40,6 @@ module magnum.io {
             
             filename = magnum.util.Path.toForwardSlashes(filename)
 
-            
             try {
 
                 var content = node.fs.readFileSync(filename);

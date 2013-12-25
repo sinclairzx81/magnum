@@ -28,7 +28,7 @@ module magnum {
 
     export interface IOptions {
     
-        devmode ? : boolean
+        cache ? : boolean
     }
 
     export function ParseEngineOptions (options:magnum.IOptions) : magnum.IOptions {
@@ -37,16 +37,16 @@ module magnum {
         
             options = {
 
-                devmode : false   
+                cache : false   
             
             }
 
             return options;
         }
 
-        if(!options.devmode) {
+        if(!options.cache) {
         
-            options.devmode = false;
+            options.cache = false;
         }
 
         return options;

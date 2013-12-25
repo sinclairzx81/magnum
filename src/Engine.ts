@@ -38,7 +38,7 @@ module magnum {
         constructor(public options : magnum.IOptions) {
 
             this.options = magnum.ParseEngineOptions(options);
-
+            
             this.cache = [];
         }
 
@@ -60,11 +60,13 @@ module magnum {
                 script.runInNewContext ( sandbox );
                 
                 var template = <magnum.ITemplate>sandbox.exports;
-
+                
                 return template
             }
             catch(e) 
             {
+                
+
                 return <magnum.ITemplate> {
                 
                     render: (context:any) => {
@@ -79,7 +81,7 @@ module magnum {
 
         public render(filename:string, context?:any) : string {
 
-            if(this.options.devmode == false) {
+            if(this.options.cache == true) {
                 
                 if(this.cache[filename]) {
 
