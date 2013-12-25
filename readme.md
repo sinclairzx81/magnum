@@ -30,7 +30,7 @@ app.js
 ```javascript
 var magnum = require('magnum')
 
-var html = magnum.render('./view.html, { title: 'my page'})
+var html = magnum.render('./view.html', { title: 'my page'})
 
 console.log(html)
 ```
@@ -51,26 +51,31 @@ outputs:
 
 	npm install magnum
 
-### example
+### api
 
-var magnum = require('./bin/index.js')
+#### render
 
-//---------------------------------------
-// parse on the fly
-//---------------------------------------
+compiles and renders the output.
 
-var html = magnum.render('./template.html', {title: 'my page'})
+```javascript
+var magnum = require('magnum')
+
+var output = magnum.render('./view.html')
+
+```
+
+#### compile
+
+compiles the template and returns a template object. users can use this compile once, and prevent extra reads to disk.
+
+```javascript
+
+var magnum   = require('magnum')
+
+var template = magnum.compile('./view.html') // save for later
+
+var html     = template.render({title: 'my page'})
 
 console.log(html)
-
-//---------------------------------------
-// compile and save
-//---------------------------------------
-
-var template = magnum.compile('./template.html', {a: 10});
-
-var html = template.render({title: 'my page'})
-
-console.log(html)
-
+```
 
