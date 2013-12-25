@@ -254,8 +254,6 @@ instead.
 }
 ```
 
-note:
-
 #### render
 
 Magnum templates allow the user to render snippets of content in place. The following renders a template named navigation.html in place. 
