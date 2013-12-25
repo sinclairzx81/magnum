@@ -9,8 +9,8 @@ A easy to use, general purpose template engine for nodejs.
 ### contents
 * [overview](#overview)
 * [api](#api)
-	* [render](#application)
-	* [compile](#options)
+	* [render](#render)
+	* [compile](#compile)
 	* [context](#context)
 * [syntax](#syntax)
 	* [expressions](#expressions)
@@ -105,6 +105,36 @@ var html     = template.render({title: 'my page'})
 
 console.log(html)
 ```
+
+#### context
+
+When calling render on a template, you can optionally pass data to this template to be rendered. Magnum encapulates this data in a context object which is passed
+to each magnum template. Consider the following..
+
+```javascript
+
+var magnum   = require('magnum')
+
+var context = {title: 'hello', numbers: [0, 1, 2, 3, 4]}
+
+var html = magnum.render('./template.html', context)
+```
+
+can be used in the template in the following way...
+
+template.html
+```html
+
+<span>@(context.title)</span>
+
+<ul>
+@for(var i = 0; i < context.numbers.length; i++) {
+	<li>@(context.numbers[i])</li>
+}
+</ul>
+```
+
+refer to the syntax section for a list of valid template syntax.
 
 <a name='syntax' />
 ### syntax
