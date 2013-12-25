@@ -309,7 +309,22 @@ instead.
 
 Magnum templates allow the user to render snippets of content in place. The following renders a template named navigation.html in place. 
 
+##### navigation.html
+```html
+
+	<ul>
+
+		<li><a href='#'>home</a></li>
+
+		<li><a href='#'>about</a></li>
+
+		<li><a href='#'>contact</a></li>
+
+	</ul>
 ```
+
+##### layout.html
+```html
 <html>
 
 	<head>
