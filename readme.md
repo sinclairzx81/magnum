@@ -1,4 +1,4 @@
-﻿# magnum templates
+﻿![](https://raw.github.com/sinclairzx81/magnum/master/logo.png)
 
 A easy to use, general purpose template engine for nodejs. 
 
