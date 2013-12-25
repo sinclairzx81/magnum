@@ -49,7 +49,7 @@ module magnum.io {
             }
             catch(e) {
             
-                return e.toString();
+                return e.toString().replace(/\\/g, '/')
             }
         }
     }

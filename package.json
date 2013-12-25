@@ -1,7 +1,7 @@
 ﻿{
   "name"            : "magnum",
 
-  "version"         : "0.1.6",
+  "version"         : "0.1.7",
 
   "description"     : "General purpose javascript template engine inspired by Microsoft Razor templates.",
 

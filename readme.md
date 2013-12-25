@@ -181,18 +181,29 @@ The following syntax is available inside magnum templates.
 <a name='expressions' />
 #### expressions
 
-will emit the value contained.
+The expression syntax allows a user to emit the value within. The following are examples. 
 
 ```
+@* strings *@
 @('hello world')
 
+@* numbers *@
 @(123)
 
+@* conditions: displays false) *@
 @(10 > 20)
 
+@* ternary: displays 'cat' *@
 @(true ? 'cat' : 'dog')
 
-@(some_variable)
+@* variables *@
+@(myvariable)
+
+@* functions: displays 'hello world' *@
+@{ var message = function() { return 'hello world' })
+
+@(message())
+
 ```
 
 <a name='if' />

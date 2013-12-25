@@ -43,7 +43,7 @@ module magnum {
              
                     public body_length : number) {
 
-              this.declarations = [];
+              this.declarations = []
         }
     }
 
@@ -60,13 +60,13 @@ module magnum {
 
             super('document', 0, content.length, 0, content.length);
 
-            this.content  = content;
+            this.content  = content
 
-            this.filename = filename;
+            this.filename = filename
 
-            var scanner = new magnum.Scanner(this, content);
+            var scanner = new magnum.Scanner(this, content)
 
-            this.declarations = scanner.declarations;
+            this.declarations = scanner.declarations
         }
     }
 
@@ -84,9 +84,9 @@ module magnum {
         
                     length        : number) {
 
-            this.filename = filename;
+            this.filename = filename
 
-            super('import', start, length, 0, 0);
+            super('import', start, length, 0, 0)
         }
     }
 
@@ -104,9 +104,9 @@ module magnum {
         
                     length        : number) {
 
-            this.filename = filename;
+            this.filename = filename
 
-            super('render', start, length, 0, 0);
+            super('render', start, length, 0, 0)
         }
     }
 
@@ -131,11 +131,11 @@ module magnum {
 
             this.name = name;
 
-            super('section', start, length, body_start, body_length);
+            super('section', start, length, body_start, body_length)
 
-            var scanner = new magnum.Scanner(this, content);
+            var scanner = new magnum.Scanner(this, content)
 
-            this.declarations = scanner.declarations;
+            this.declarations = scanner.declarations
         }
     }
 
@@ -160,11 +160,11 @@ module magnum {
 
             this.expression = expression;
 
-            super('for', start, length, body_start, body_length);
+            super('for', start, length, body_start, body_length)
 
-            var scanner = new magnum.Scanner(this, content);
+            var scanner = new magnum.Scanner(this, content)
 
-            this.declarations = scanner.declarations;
+            this.declarations = scanner.declarations
         }
     }
 
@@ -187,13 +187,13 @@ module magnum {
 
                     body_length : number) {
 
-            this.expression = expression;
+            this.expression = expression
 
-            super('if', start, length, body_start, body_length);
+            super('if', start, length, body_start, body_length)
 
-            var scanner = new magnum.Scanner(this, content);
+            var scanner = new magnum.Scanner(this, content)
 
-            this.declarations = scanner.declarations;
+            this.declarations = scanner.declarations
         }
     }
     
@@ -212,7 +212,7 @@ module magnum {
                     
                     body_length : number) {
 
-            super('code', start, length, body_start, body_length);
+            super('code', start, length, body_start, body_length)
         }        
     }
     
@@ -231,9 +231,9 @@ module magnum {
 
                     length     : number) {
 
-            this.expression = expression;
+            this.expression = expression
 
-            super('expression', start, length, 0, 0);
+            super('expression', start, length, 0, 0)
         }        
     }
 
@@ -252,9 +252,9 @@ module magnum {
 
                     length      : number) {
 
-            this.comment = comment;
+            this.comment = comment
 
-            super('comment', start, length, 0, 0);
+            super('comment', start, length, 0, 0)
         } 
     }
 
@@ -267,7 +267,7 @@ module magnum {
 
                     length        : number) {
             
-            super('content', start, length, 0, 0);
+            super('content', start, length, 0, 0)
         }    
     }
 
@@ -281,19 +281,19 @@ module magnum {
 
         constructor(public declaration : magnum.Declaration, public content : string) {
             
-            this.declarations = [];
+            this.declarations = []
 
-            this.scan();
+            this.scan()
         }
 
         private max             () : number {
             
-            return (this.declaration.body_start + this.declaration.body_length);
+            return (this.declaration.body_start + this.declaration.body_length)
         }
 
         private read            (start:number, length:number) : string {
             
-            return this.content.substr(start, length);
+            return this.content.substr(start, length)
         }
         
         private advance         (index:number) : number {
@@ -336,36 +336,36 @@ module magnum {
 
             for(var i = index; i < this.max(); i++) {
                 
-                var _code = this.content.charCodeAt(i);
+                var _code = this.content.charCodeAt(i)
 
                 if(_code == code) {
                     
-                    return (i);
+                    return (i)
                 }
             }
 
-            return this.max();
+            return this.max()
         }
 
         private scan_section    (index:number) : number {
             
-            var name          = '';
+            var name          = ''
             
-            var start         = index;
+            var start         = index
             
-            var length        = 0;
+            var length        = 0
             
-            var body_start    = 0;
+            var body_start    = 0
             
-            var body_length   = 0;
+            var body_length   = 0
             
-            var cursor       = (index + 8);
+            var cursor       = (index + 8)
 
             // ensure there is a space between 
             // @section and its name. otherwise return.
             if(this.content.charCodeAt(cursor) != 32) {
 
-                return index;
+                return index
             }
             
             // ensure that the next character is not a 
@@ -375,7 +375,7 @@ module magnum {
             
             if(this.content.charAt(cursor) == '{') {
                 
-                return index;
+                return index
             }
 
             // scan ahead to obtain the section name.
@@ -388,16 +388,16 @@ module magnum {
 
                 if(i == (this.max() - 1)) {
 
-                    return index;
+                    return index
                 }
 
                 if((code < 48 || code > 57) && (code < 65 || code > 122)) {
                     
-                    name = this.read(cursor, i - cursor);
+                    name = this.read(cursor, i - cursor)
                      
-                    cursor = i;
+                    cursor = i
 
-                    break;
+                    break
                 }
             }
             
@@ -410,68 +410,68 @@ module magnum {
             
             if(this.content.charAt(peek) != '{') {
                 
-                var declaration = new magnum.SectionDeclaration(this.content, name, start, (cursor - index), 0, 0);
+                var declaration = new magnum.SectionDeclaration(this.content, name, start, (cursor - index), 0, 0)
 
-                this.declarations.push(declaration);
+                this.declarations.push(declaration)
 
-                return cursor;
+                return cursor
             }
 
             // scan ahead looking for the body content. keep
             // a count of the opening and closing braces, and
             // only completing when the braces return to 0.
 
-            var count = 0;
+            var count = 0
 
             for(var i = cursor; i < this.max(); i++) {
             
-                var ch = this.content.charAt(i);
+                var ch = this.content.charAt(i)
 
                 if(ch == '{') {
 
                     if(count == 0) {
 
-                        body_start = i + 1;
+                        body_start = i + 1
                     }
 
-                    count += 1;
+                    count += 1
                 }
 
                 if(ch == '}') {
                 
-                    count -= 1;
+                    count -= 1
 
                     if(count == 0) {
                     
                         body_length = (i - body_start)
 
-                        length      = (i - index) + 1;
+                        length      = (i - index) + 1
 
-                        break;
+                        break
                     }
                 }
             }
 
-            var declaration = new magnum.SectionDeclaration(this.content, name, start, length, body_start, body_length);
+            var declaration = new magnum.SectionDeclaration(this.content, name, start, length, body_start, body_length)
 
-            this.declarations.push(declaration);
+            this.declarations.push(declaration)
 
-            return index + declaration.length;
+            return index + declaration.length
         }
 
         private scan_import     (index:number) : number {
         
-            var filename  = '';
+            var filename  = ''
 
-            var start     = index;
+            var start     = index
             
-            var length    = 0;
+            var length    = 0
             
-            var cursor    = (index + 7);
+            var cursor    = (index + 7)
 
-            cursor = this.advance(cursor);
+            cursor = this.advance(cursor)
 
-            var quote_flag = 0;
+            var quote_flag = 0
 
             // ensure that the next character after
             // @import is either a single or double
@@ -481,11 +481,11 @@ module magnum {
 
             if(code == 39 || code == 34) {
 
-                quote_flag = code;
+                quote_flag = code
             }
             else {
 
-                return (index);
+                return (index)
             }
 
             // advance one and scan through the @import 
@@ -498,40 +498,43 @@ module magnum {
 
             for(var i = cursor; i < this.max(); i++) {
             
-                var code = this.content.charCodeAt(i);
+                var code = this.content.charCodeAt(i)
 
                 if(code == 10 || code == 13) {
                 
-                    return index;
+                    return index
                 }
 
                 if(code == quote_flag) {
                     
-                    filename = this.read(cursor, i - cursor);
+                    filename = this.read(cursor, i - cursor)
 
-                    length   = (i - index) + 1;
+                    length   = (i - index) + 1
 
-                    break;
+                    break
                 }
             }
 
-            var declaration = new magnum.ImportDeclaration(filename, start, length);
+            var declaration = new magnum.ImportDeclaration(filename, start, length)
 
-            this.declarations.push(declaration);
+            this.declarations.push(declaration)
 
-            return index + declaration.length;
+            return index + declaration.length
         }
 
         private scan_render     (index:number) : number {
 
-            var filename  = '';
-            var start     = index;
-            var length    = 0;
-            var cursor    = (index + 7);
+            var filename  = ''
+            
+            var start     = index
+            
+            var length    = 0
+            
+            var cursor    = (index + 7)
 
-            cursor = this.advance(cursor);
+            cursor = this.advance(cursor)
 
-            var quote_flag = 0;
+            var quote_flag = 0
 
             // ensure that the next character after
             // @render is either a single or double
@@ -541,11 +544,11 @@ module magnum {
 
             if(code == 39 || code == 34) {
 
-                quote_flag = code;
+                quote_flag = code
             }
             else {
 
-                return (index);
+                return (index)
             }
 
             // advance one and scan through the @render 
@@ -558,70 +561,89 @@ module magnum {
 
             for(var i = cursor; i < this.max(); i++) {
             
-                var code = this.content.charCodeAt(i);
+                var code = this.content.charCodeAt(i)
 
                 if(code == 10 || code == 13) {
                 
-                    return index;
+                    return index
                 }
 
                 if(code == quote_flag) {
                     
-                    filename = this.read(cursor, i - cursor);
+                    filename = this.read(cursor, i - cursor)
 
-                    length   = (i - index) + 1;
+                    length   = (i - index) + 1
 
-                    break;
+                    break
                 }
             }
 
-            var declaration = new magnum.RenderDeclaration(filename, start, length);
+            var declaration = new magnum.RenderDeclaration(filename, start, length)
 
-            this.declarations.push(declaration);
+            this.declarations.push(declaration)
 
-            return index + declaration.length;          
+            return index + declaration.length         
         }
 
         private scan_for        (index:number) : number {
 
-            var expression  = '';
-            var start       = index;
-            var length      = 0;
-            var body_start  = 0;
-            var body_length = 0;
+            var expression  = ''
+            
+            var start       = index
+            
+            var length      = 0
+            
+            var body_start  = 0
+            
+            var body_length = 0
 
-            var cursor      = index + 4;
+            var cursor      = index + 4
 
-            cursor = this.advance(cursor);
+            cursor = this.advance(cursor)
             
             // ensure that the next charactor found
             // after @for is the opening brace for the
             // expression.
             if(this.content.charCodeAt(cursor) != 40) {
                 
-                return index;
+                return index
             }
 
             // scan forward looking for the expression.
             // if at any time we encounter something suspicious, 
             // like newline returns, we escape.
+
+            var bracket_count = 0
+
             for(var i = cursor; i < this.max(); i++) {
             
-                var code = this.content.charCodeAt(i);
+                var code = this.content.charCodeAt(i)
 
                 // newlines not supported.
                 if(code == 10 || code == 13) {
                     
-                    return index;
+                    return index
                 }
 
-                if(code == 41) {
+                // increment the bracket count
+                if(code == 40) {
                 
-                    expression = this.read(cursor, (i - cursor) + 1);
+                    bracket_count += 1
+                }
 
-                    cursor = (i + 1);
+                // increment the bracket count
+                if(code == 41) {
+                    
+                    bracket_count -= 1
 
-                    break;
+                    if(bracket_count == 0) {
+                    
+                        expression = this.read(cursor, (i - cursor) + 1)
+
+                        cursor = (i + 1)
+
+                        break                    
+                    }
                 }
             }
 
@@ -632,27 +654,27 @@ module magnum {
 
             if(this.content.charCodeAt(cursor) != 123) {
                 
-                return index;
+                return index
             }
             
             // scan ahead looking for the body content. keep
             // a count of the opening and closing braces, and
             // only completing when the braces return to 0.
 
-            var count = 0;
+            var count = 0
 
             for(var i = cursor; i < this.max(); i++) {
             
-                var ch = this.content.charAt(i);
+                var ch = this.content.charAt(i)
                 
                 if(ch == '{') {
 
                     if(count == 0) {
                 
-                        body_start = (i + 1);
+                        body_start = (i + 1)
                     }   
 
-                    count += 1;
+                    count += 1
                 }
                 
                 if(ch == '}') {
@@ -663,30 +685,35 @@ module magnum {
                     
                         body_length = (i - body_start)
 
-                        length      = (i - index) + 1;
+                        length      = (i - index) + 1
 
                         break;
                     }
                 }
             }
 
-            var declaration = new magnum.ForDeclaration(this.content, expression, start, length, body_start, body_length);
+            var declaration = new magnum.ForDeclaration(this.content, expression, start, length, body_start, body_length)
 
-            this.declarations.push(declaration);
+            this.declarations.push(declaration)
 
-            return index + declaration.length;
+            return index + declaration.length
         }
 
         private scan_if         (index:number) : number {
 
-            var expression  = '';
-            var start       = index;
-            var length      = 0;
-            var body_start  = 0;
-            var body_length = 0;
-            var cursor      = index + 3;
+            var expression  = ''
+            
+            var start       = index
+            
+            var length      = 0
+            
+            var body_start  = 0
+            
+            var body_length = 0
+            
+            var cursor      = index + 3
 
-            cursor = this.advance(cursor);
+            cursor = this.advance(cursor)
             
             // ensure that the next charactor found
             // after @if is the opening brace for the
@@ -701,23 +728,37 @@ module magnum {
             // if at any time we encounter something suspicious, 
             // like newline returns, we escape.
 
+            var bracket_count = 0
+
             for(var i = cursor; i < this.max(); i++) {
             
-                var code = this.content.charCodeAt(i);
+                var code = this.content.charCodeAt(i)
 
                 // newlines not supported.
                 if(code == 10 || code == 13) {
                     
-                    return index;
+                    return index
                 }
 
-                if(code == 41) {
+                // increment the bracket count
+                if(code == 40) {
                 
-                    expression = this.read(cursor, (i - cursor) + 1);
+                    bracket_count += 1
+                }
 
-                    cursor = (i + 1);
+                // decrement the bracket count
+                if(code == 41) {
+                    
+                    bracket_count -= 1
 
-                    break;
+                    if(bracket_count == 0) {
+                    
+                        expression = this.read(cursor, (i - cursor) + 1)
+
+                        cursor = (i + 1)
+
+                        break
+                    }
                 }
             }
 
@@ -725,18 +766,18 @@ module magnum {
             // is the opening body brace. if not found, this is 
             // not a valid @if, return the original index.
 
-            cursor = this.advance(cursor);
+            cursor = this.advance(cursor)
 
             if(this.content.charCodeAt(cursor) != 123) {
                 
-                return index;
+                return index
             }
             
             // scan ahead looking for the body content. keep
             // a count of the opening and closing braces, and
             // only completing when the braces return to 0.
 
-            var count = 0;
+            var count = 0
 
             for(var i = cursor; i < this.max(); i++) {
             
@@ -746,10 +787,10 @@ module magnum {
 
                     if(count == 0) {
                 
-                        body_start = (i + 1);
+                        body_start = (i + 1)
                     }   
 
-                    count += 1;
+                    count += 1
                 }
                 
                 if(ch == '}') {
@@ -760,7 +801,7 @@ module magnum {
                     
                         body_length = (i - body_start)
 
-                        length      = (i - index) + 1;
+                        length      = (i - index) + 1
 
                         break;
                     }
@@ -776,15 +817,15 @@ module magnum {
 
         private scan_code       (index:number) : number {
 
-            var start       = index;
+            var start       = index
             
-            var length      = 0;
+            var length      = 0
             
-            var body_start  = index + 2;
+            var body_start  = index + 2
             
-            var body_length = 0;
+            var body_length = 0
 
-            var cursor      = index + 1;
+            var cursor      = index + 1
             
             // scan ahead looking for the body of the code. keep
             // a count of the opening and closing braces, and
@@ -798,37 +839,40 @@ module magnum {
                 
                 if(ch == '{') { 
 
-                    count += 1;
+                    count += 1
                 }
                 
                 if(ch == '}') {
                     
-                     count -= 1;
+                     count -= 1
 
                     if(count == 0) {
                     
                         body_length = (i - body_start)
 
-                        length      = (i - index) + 1;
+                        length      = (i - index) + 1
 
-                        break;
+                        break
                     }
                 }
             }
 
-            var declaration = new magnum.CodeDeclaration(this.content, start, length, body_start, body_length);
+            var declaration = new magnum.CodeDeclaration(this.content, start, length, body_start, body_length)
 
-            this.declarations.push(declaration);
+            this.declarations.push(declaration)
 
-            return index + declaration.length;
+            return index + declaration.length
         }
 
         private scan_expression (index:number) : number {
             
-            var expression = '';
-            var start      = index;
-            var length     = 0;
-            var cursor     = (index + 1);
+            var expression = ''
+            
+            var start      = index
+            
+            var length     = 0
+            
+            var cursor     = (index + 1)
             
             cursor = this.advance(cursor);
             
@@ -845,6 +889,9 @@ module magnum {
             // scan through the content reading the body
             // of the expression. if we encounter a newline
             // or other invalid syntax, we need to return.
+
+            var bracket_count = 0
+
             for(var i = cursor; i < this.max(); i++) {
                 
                 var code = this.content.charCodeAt(i);
@@ -855,13 +902,25 @@ module magnum {
                     return index;
                 }
 
-                if(code == 41) {
+                // increment the bracket count
+                if(code == 40) {
+
+                    bracket_count += 1
+                }
                 
-                    expression = this.read(cursor, (i - cursor) + 1);
+                // decrement the bracket count
+                if(code == 41) {
 
-                    length     = (i - index) + 1;
+                    bracket_count -= 1
 
-                    break;
+                    if(bracket_count == 0) {
+
+                        expression = this.read(cursor, (i - cursor) + 1);
+
+                        length     = (i - index) + 1;
+
+                        break;                    
+                    }
                 }
             }
 

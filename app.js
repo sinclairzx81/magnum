@@ -4,9 +4,6 @@
 // parse on the fly
 //---------------------------------------
 
-var html = magnum.render('./template.html', {title: 'my page'})
-
-console.log(html)
 
 //---------------------------------------
 // compile and save
@@ -14,7 +11,8 @@ console.log(html)
 
 var template = magnum.compile('./template.html', {a: 10});
 
-var html = template.render({title: 'my page'})
+
+var html = template.render({title: 'my page', method: function() {return 'hello there'}})
 
 console.log(html)
 

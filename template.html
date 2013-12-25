@@ -1,13 +1,16 @@
-﻿@import 'layout.html'
+﻿@{
 
-@section header {
+	var method = function() {
+		return "hello world"
+	}
 
-	<title>@(context.title)</html>
-}
+	var count = function() {
+		return 10
+	}
+}	
 
-@section body {
+@(context.method())
+@for(var i = 0; i < count(); i++) {
 	
-
-	@(true ? 10 : 20)
-	<h1>Welcome</h1>
+	@(JSON.stringify(context))
 }
