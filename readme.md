@@ -55,7 +55,9 @@ app.js
 ```javascript
 var magnum = require('magnum')
 
-var html = magnum.render('./view.html', { title: 'my page'})
+var context = { title: 'my page'}
+
+var html = magnum.render('./view.html', context)
 
 console.log(html)
 ```
@@ -99,7 +101,7 @@ compiles the template and returns a template object. users can use this compile 
 
 var magnum   = require('magnum')
 
-var template = magnum.compile('./view.html') // save for later
+var template = magnum.compile('./view.html') // save compiled template for later.
 
 var html     = template.render({title: 'my page'})
 
@@ -108,33 +110,36 @@ console.log(html)
 
 #### context
 
-When calling render on a template, you can optionally pass data to this template to be rendered. Magnum encapulates this data in a context object which is passed
-to each magnum template. Consider the following..
+When calling render() on a template, you can optionally pass a data context (an object) to be rendered. Magnum encapulates all data passed on the "context"
+object which is passed to magnum template on the render() method. Consider the following..
 
 ```javascript
 
 var magnum   = require('magnum')
 
-var context = {title: 'hello', numbers: [0, 1, 2, 3, 4]}
+var context = {name: 'dave', fruits: ['apples', 'oranges', 'kiwifruit', 'mangos', 'grapes']}
 
 var html = magnum.render('./template.html', context)
 ```
 
-can be used in the template in the following way...
+the context can be accessed in the following way...
 
 template.html
 ```html
 
-<span>@(context.title)</span>
+<p>Hi @(context.name)</p>
 
 <ul>
-@for(var i = 0; i < context.numbers.length; i++) {
-	<li>@(context.numbers[i])</li>
-}
+
+	@for(var i = 0; i < context.fruits.length; i++) {
+
+		<li>@(context.fruits[i])</li>
+	}
+
 </ul>
 ```
 
-refer to the syntax section for a list of valid template syntax.
+contexts are optional.
 
 <a name='syntax' />
 ### syntax
