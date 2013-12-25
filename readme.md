@@ -60,14 +60,15 @@ outputs:
 	* [render](#application)
 	* [compile](#options)
 	* [context](#context)
-* [syntax]
+* [syntax](#syntax)
 	* [expressions](#expressions)
 	* [if statements](#if)
 	* [for statements](#if)
 	* [comments](#comments)
 	* [code blocks](#code blocks)
- * [layouts]
+ * [layouts](#layouts)
 	* [import](#import)
+	* [render](#render)
 
 <a name='api' />
 ### api
