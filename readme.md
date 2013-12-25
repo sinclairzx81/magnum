@@ -213,14 +213,15 @@ code blocks can be useful for adding template side rendering logic.
 <a name="template_layouts_and_sections" />
 ### layouts and sections
 
-magnum templates support template inheritance and partials. T
+Mangum supports layouts and sections. This section describes how to use them.
 
 #### import
 
-Use the import statement to have one template inheriate from another. This will allow the child template to override the sections of the parent. 
+Use the import statement to have one template inheriate from another. This will allow the child template to (optionally) override the 
+sections of the parent. 
 
 ##### layout.html
-Layout is the parent template, here we define three sections, header, body and footer. note that the footer has some default content.
+layout.html will be the parent template, here we define three sections.. header, body and footer. 
 
 ```html
 <html>
@@ -238,7 +239,8 @@ Layout is the parent template, here we define three sections, header, body and f
 
 ##### view.html
 Inside view.html, we inheriate from layout.html with the import keyword. Inside view.html, we define sections for header and body. Note that
-the default content for the footer not overridden.
+the default content for the footer not overridden. If the child template does not override a parents section, the parents section will be used
+instead.
 
 ```html
 @import 'layout.html'
@@ -252,8 +254,19 @@ the default content for the footer not overridden.
 }
 ```
 
-note: if a section is not overridden, the parents content is used instead.
+note:
 
 #### render
 
-Magnum templates allow the user to 
+Magnum templates allow the user to render snippets of content in place. The following renders a template named navigation.html in place. 
+
+```
+<html>
+	<head>
+	</head>
+	<body>
+		@render 'navigation.html'
+		@section content
+	</body>
+</html>
+```
