@@ -8,7 +8,6 @@ layout.html
 	<head>
 		@section header
 	</head>
-
 	<body>
 		@section body
 	</body>
@@ -20,12 +19,10 @@ view.html
 @import 'layout.html'
 
 @section header {
-
 	<title>@(context.title)</html>
 }
 
 @section body {
-
 	<h1>Welcome</h1>
 }
 ```
@@ -37,6 +34,18 @@ var html = magnum.render('./view.html, { title: 'my page'})
 
 console.log(html)
 ```
+outputs:
+```html
+<html>
+	<head>
+		<title>my page</html>
+	</head>
+	<body>
+		<h1>Welcome</h1>
+	</body>
+</html>
+```
+
 
 ### install
 
