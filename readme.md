@@ -1,6 +1,6 @@
 ﻿![](https://raw.github.com/sinclairzx81/magnum/master/logo.png)
 
-A easy to use, general purpose template engine for nodejs. 
+A fast, easy to use, general purpose template view engine for nodejs.
 
 ### install
 
@@ -27,8 +27,11 @@ A easy to use, general purpose template engine for nodejs.
 <a name='overview' />
 ### overview
 
-Magnum is a general purpose logic driven templating engine for nodejs developers. Magnum templates allow developers to script 
-view logic with javascript syntax, with the intent to allow for the templating of any text based format. Inspired by Microsoft Razor.
+Magnum is a general purpose logic driven templating engine for nodejs developers. Magnum templates allow developers to easily script 
+complex view logic with a javascript like syntax. Magnum focuses on being general purpose to enable developers can leverage it for 
+code generation, html templates, xml or other niche template scenarios.
+
+Inspired by Microsoft Razor
 
 <a name='example' />
 ### example
@@ -145,19 +148,6 @@ When calling render() on a template (or via magnum itself), you can optionally p
 Magnum encapulates all data passed on the "context"
 object which is passed to magnum template on the render() method. Consider the following..
 
-##### app.js
-```javascript
-
-var magnum   = require('magnum')
-
-var context = {name   : 'dave', 
-		       fruits : ['apples', 'oranges', 'kiwifruit', 'mangos', 'grapes' ]}
-
-var html = magnum.render('./template.html', context)
-```
-
-the context can be accessed in the following way...
-
 ##### template.html
 ```html
 
@@ -172,6 +162,25 @@ the context can be accessed in the following way...
 
 </ul>
 ```
+
+##### app.js
+```javascript
+
+var magnum   = require('magnum')
+
+var context = {name   : 'dave', 
+		       fruits : ['apples', 
+						 'oranges', 
+						 'kiwifruit', 
+						 'mangos', 
+						 'grapes' ]}
+
+var html = magnum.render('./template.html', context)
+```
+
+the context can be accessed in the following way...
+
+
 
 <a name='syntax' />
 ### syntax
@@ -200,7 +209,7 @@ The expression syntax allows a user to emit the value within. The following are 
 @(myvariable)
 
 @* functions: displays 'hello world' *@
-@{ var message = function() { return 'hello world' })
+@{ var message = function() { return 'hello world' } }
 
 @(message())
 

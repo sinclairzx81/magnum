@@ -9,8 +9,10 @@
 	}
 }	
 
-@(context.method())
 @for(var i = 0; i < count(); i++) {
 	
 	@(JSON.stringify(context))
+@{ var message = function() { return 'hello world' } }
+
+@(message(i))
 }
