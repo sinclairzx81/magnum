@@ -22,7 +22,7 @@ A fast, easy to use, general purpose template view engine for nodejs.
 * [layouts](#layouts)
 	* [import](#import)
 	* [render](#render)
-
+* [express](#express)
 
 <a name='overview' />
 ## overview
@@ -361,3 +361,48 @@ Magnum templates allow the user to render snippets of content in place. The foll
 
 </html>
 ```
+
+<a name='express' />
+##express
+Magnum does not provide any built in middleware for specifically for express, however it is trivial for developers to 'snap in' utility 
+methods on the express response to acheive desireable results. consider the following...
+
+```javascript
+
+var express = require('express')
+
+var magnum  = require('magnum')
+
+//----------------------------------------------
+// setup: create and apply render method
+//----------------------------------------------
+
+var app     = express()
+
+app.use(function (req, res, next) {
+
+    res.render = function (path, context) {
+
+        var output = magnum.render(path, context)
+
+        res.setHeader('Content-Type', 'text/html')
+
+        res.setHeader('Content-Length', Buffer.byteLength(output))
+
+        res.send(output)
+    }
+	
+    next()
+})
+
+
+//----------------------------------------------
+// render the template...
+//----------------------------------------------
+
+app.get('/', function(req, res) {
+	
+	res.render('./index.html') 
+})
+```
+
