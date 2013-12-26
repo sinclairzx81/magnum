@@ -169,8 +169,6 @@ module magnum {
                     
                     var expression_declaration = <magnum.ExpressionDeclaration>declaration;
 
-                    console.log(expression_declaration.expression)
-
                     this.write('        this.write' + expression_declaration.expression);
 
                     break;

@@ -212,5 +212,5 @@ pip-log.txt
 *.mo
 
 #Mr Developer
-parent.txt
-template.txt
+layout.html
+template.html
