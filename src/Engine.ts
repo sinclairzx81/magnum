@@ -33,45 +33,43 @@ module magnum {
     export class Engine {
 
         /** a the appex template cache. */
-        public cache  : magnum.ITemplate[];
+
+        public cache  : magnum.ITemplate[]
             
         constructor(public options : magnum.IOptions) {
 
-            this.options = magnum.ParseEngineOptions(options);
+            this.options = magnum.ParseEngineOptions(options)
             
-            this.cache = [];
+            this.cache = []
         }
-
 
         /** compiles this file into a magnum template */
 
         public compile(filename:string) : ITemplate {
         
-            var parser = new magnum.Parser(filename);
+            var parser = new magnum.Parser(filename)
 
-            var code = parser.parse();
+            var output = parser.parse()
 
-            try
-            {
-                var script = node.vm.createScript(code + ' exports = new template()', filename );
+            try {
 
-                var sandbox = { exports : {} };
+                var script = node.vm.createScript(output + ' exports = new Template()', filename )
 
-                script.runInNewContext ( sandbox );
+                var sandbox = { Buffer: Buffer, exports : {} }
+
+                script.runInNewContext ( sandbox )
                 
-                var template = <magnum.ITemplate>sandbox.exports;
+                var template = <magnum.ITemplate>sandbox.exports
                 
                 return template
             }
-            catch(e) 
-            {
-                
+            catch(e) {
 
                 return <magnum.ITemplate> {
                 
                     render: (context:any) => {
                         
-                        return e.toString();
+                        return e.toString()
                     }
                 }
             }
@@ -83,37 +81,37 @@ module magnum {
 
             if(this.options.cache == true) {
                 
-                if(this.cache[filename]) {
+                if(this.cache[filename] != null) {
 
-                    var template = <magnum.ITemplate>this.cache[filename];
+                    var template = <magnum.ITemplate>this.cache[filename]
 
-                    return template.render(context || {})
+                    return template.render(context)
                 }
             }
-            
-            var parser = new magnum.Parser(filename);
 
-            var code   = parser.parse();
+            var parser = new magnum.Parser(filename)
 
-            try
-            {
-                var script = node.vm.createScript(code + ' exports = new template()', filename );
+            var code = parser.parse()
 
-                var sandbox = { exports : {} };
+            try {
 
-                script.runInNewContext ( sandbox );
+                var script = node.vm.createScript(code + ' exports = new Template()', filename )
 
-                var template = <magnum.ITemplate>sandbox.exports;
+                var sandbox = { Buffer : Buffer, exports : {} }
 
-                var result   = template.render(context || {});  
+                script.runInNewContext ( sandbox )
 
-                this.cache[filename] = template;
+                var template = <magnum.ITemplate>sandbox.exports
+
+                var result   = template.render( context )
+
+                this.cache[filename] = template
 
                 return result;
             }
-            catch(e) 
-            {
-                return e.toString();
+            catch(e) {
+
+                return e.toString()
             }
         }
     }

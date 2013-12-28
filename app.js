@@ -2,6 +2,6 @@
 
 var template = magnum.compile('./template.html');
 
-var html = template.render()
+var output = template.render()
 
-console.log(html)
+console.log(output)

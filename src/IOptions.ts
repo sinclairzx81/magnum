@@ -44,7 +44,7 @@ module magnum {
             return options;
         }
 
-        if(!options.cache) {
+        if(options.cache == null) {
         
             options.cache = false;
         }

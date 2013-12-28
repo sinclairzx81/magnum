@@ -31,10 +31,9 @@ THE SOFTWARE.
 /// <reference path="Parser.ts" />
 /// <reference path="Engine.ts" />
 
-
 module.exports = magnum;
 
-var engine = null;
+var engine :magnum.Engine = null;
 
 function initialize() {
     
@@ -44,20 +43,35 @@ function initialize() {
     }
 }
 
-module.exports.render = function(path:string, context:any) : string {
+//------------------------------------------------------
+// compile(): compiles a template from the filename.
+//------------------------------------------------------
+module.exports.compile = (filename:string) : magnum.ITemplate => {
+
+    initialize();
+
+    var template = engine.compile(filename);
+
+    return template;
+}
+
+//------------------------------------------------------
+// cache(): enables or disables the render() cache.
+//------------------------------------------------------
+module.exports.cache = (enabled: boolean) => {
+
+    initialize()
+
+    engine.options.cache = enabled
+}
+
+//------------------------------------------------------
+// render(): renders the template.
+//------------------------------------------------------
+
+module.exports.render = (path:string, context:any) : string => {
     
     initialize()
 
     return engine.render(path, context)
 }
-
-module.exports.compile = function(path:string) : Function {
-
-    initialize();
-
-    var template = engine.compile(path);
-
-    return template;
-}
-
-
